@@ -27,8 +27,16 @@ class APIControllerGenerator extends BaseGenerator
     public function generate()
     {
         $templateData = get_template('api.controller.api_controller', 'laravel-generator');
-
         $templateData = fill_template($this->commandData->dynamicVars, $templateData);
+        $templateData = conditional_resolver_inline(
+            [
+                'hasToken' => (bool)$this->commandData->getOption('hasToken'),
+                'authenticate' => (bool)$this->commandData->getOption('auth')
+            ], $templateData);
+        $templateData = conditional_resolver(
+            [
+                'hasToken' => (bool)$this->commandData->getOption('hasToken') 
+            ], $templateData);
         $templateData = $this->fillDocs($templateData);
 
         FileUtil::createFile($this->path, $this->fileName, $templateData);

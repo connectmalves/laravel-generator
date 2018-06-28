@@ -1,0 +1,4 @@
+'$MODEL_NAME_PLURAL_CAMEL$' => [
+            'driver' => 'eloquent',
+            'model' => $NAMESPACE_MODEL$\$MODEL_NAME$::class
+        ]

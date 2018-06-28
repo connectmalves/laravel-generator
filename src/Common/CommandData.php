@@ -218,6 +218,9 @@ class CommandData
                         $this->relations[] = GeneratorFieldRelation::parseRelation($field['relation']);
                     } else {
                         $this->fields[] = GeneratorField::parseFieldFromFile($field);
+                        if(end($this->fields)->hasToken){
+                            $this->setOption('hasToken', end($this->fields)->hasToken);
+                        }
                         if (isset($field['relation'])) {
                             $this->relations[] = GeneratorFieldRelation::parseRelation($field['relation']);
                         }

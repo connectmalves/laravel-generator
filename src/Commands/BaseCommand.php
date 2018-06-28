@@ -17,6 +17,7 @@ use InfyOm\Generator\Generators\Scaffold\MenuGenerator;
 use InfyOm\Generator\Generators\Scaffold\RequestGenerator;
 use InfyOm\Generator\Generators\Scaffold\RoutesGenerator;
 use InfyOm\Generator\Generators\Scaffold\ViewGenerator;
+use InfyOm\Generator\Generators\Scaffold\AuthGenerator;
 use InfyOm\Generator\Generators\TestTraitGenerator;
 use InfyOm\Generator\Utils\FileUtil;
 use Symfony\Component\Console\Input\InputArgument;
@@ -112,10 +113,15 @@ class BaseCommand extends Command
             $controllerGenerator = new ControllerGenerator($this->commandData);
             $controllerGenerator->generate();
         }
-
+        
         if (!$this->isSkip('views')) {
             $viewGenerator = new ViewGenerator($this->commandData);
             $viewGenerator->generate();
+        }
+        
+        if ($this->commandData->getOption('auth')) {
+            $authGenerator = new AuthGenerator($this->commandData);
+            $authGenerator->generate();
         }
 
         if (!$this->isSkip('routes') and !$this->isSkip('scaffold_routes')) {
@@ -238,6 +244,7 @@ class BaseCommand extends Command
             ['datatables', null, InputOption::VALUE_REQUIRED, 'Override datatables settings'],
             ['views', null, InputOption::VALUE_REQUIRED, 'Specify only the views you want generated: index,create,edit,show'],
             ['relations', null, InputOption::VALUE_NONE, 'Specify if you want to pass relationships for fields'],
+            ['auth', 'A', InputOption::VALUE_NONE, 'Generate Guards and Provider for authentication.'],
         ];
     }
 

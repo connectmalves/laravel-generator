@@ -1,0 +1,4 @@
+'api-$MODEL_NAME_CAMEL$' => [
+            'driver' => 'token',
+            'provider'=> '$MODEL_NAME_PLURAL_CAMEL$'
+        ]

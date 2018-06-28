@@ -35,6 +35,7 @@ class GeneratorConfig
     public $pathController;
     public $pathRequest;
     public $pathRoutes;
+    public $pathAuth;
     public $pathViews;
     public $modelJsPath;
 
@@ -74,6 +75,12 @@ class GeneratorConfig
         'datatables',
         'views',
         'relations',
+        'auth'
+    ];
+
+    /* Template functions */
+    public static $availableFunctions = [
+        'getOptions'
     ];
 
     public $tableName;
@@ -187,6 +194,8 @@ class GeneratorConfig
 
         $this->pathRoutes = config('infyom.laravel_generator.path.routes', app_path('Http/routes.php'));
 
+        $this->pathAuth = config('infyom.laravel_generator.path.auth', base_path('config/auth.php'));
+
         $this->pathViews = config(
             'infyom.laravel_generator.path.views',
             base_path('resources/views/')
@@ -229,6 +238,8 @@ class GeneratorConfig
         $commandData->addDynamicVariable('$MODEL_NAME_PLURAL_SLASH$', $this->mSlashPlural);
         $commandData->addDynamicVariable('$MODEL_NAME_HUMAN$', $this->mHuman);
         $commandData->addDynamicVariable('$MODEL_NAME_PLURAL_HUMAN$', $this->mHumanPlural);
+
+        $commandData->addDynamicVariable('$TOKEN_FIELD_NAME$', 'api_token');
 
         if (!empty($this->prefixes['route'])) {
             $commandData->addDynamicVariable('$ROUTE_NAMED_PREFIX$', $this->prefixes['route'].'.');

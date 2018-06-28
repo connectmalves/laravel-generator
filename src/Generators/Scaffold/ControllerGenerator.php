@@ -45,7 +45,13 @@ class ControllerGenerator extends BaseGenerator
                 $templateData = str_replace('$RENDER_TYPE$', 'all()', $templateData);
             }
         }
-
+        $templateData = conditional_resolver_inline(
+            [
+                'hasToken' => (bool)$this->commandData->getOption('hasToken'),
+                'authenticate' => (bool)$this->commandData->getOption('auth')
+            ],
+            $templateData
+        );
         $templateData = fill_template($this->commandData->dynamicVars, $templateData);
 
         FileUtil::createFile($this->path, $this->fileName, $templateData);

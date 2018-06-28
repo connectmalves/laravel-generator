@@ -134,6 +134,9 @@ class GeneratorField
         $field->isPrimary = isset($fieldInput['primary']) ? $fieldInput['primary'] : false;
         $field->inForm = isset($fieldInput['inForm']) ? $fieldInput['inForm'] : true;
         $field->inIndex = isset($fieldInput['inIndex']) ? $fieldInput['inIndex'] : true;
+        $field->hasToken = isset($fieldInput['token']) ? $fieldInput['token'] : false;
+        if($field->hasToken)
+            $field->name = "api_token";
 
         return $field;
     }

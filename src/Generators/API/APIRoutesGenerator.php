@@ -32,7 +32,10 @@ class APIRoutesGenerator extends BaseGenerator
         } else {
             $routesTemplate = get_template('api.routes.routes', 'laravel-generator');
         }
-
+        $routesTemplate = conditional_resolver(
+            [
+                'hasToken' => (bool)$this->commandData->getOption('hasToken') 
+            ], $routesTemplate);
         $this->routesTemplate = fill_template($this->commandData->dynamicVars, $routesTemplate);
     }
 

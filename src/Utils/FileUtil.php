@@ -34,4 +34,13 @@ class FileUtil
 
         return false;
     }
+
+    public static function insert_after_regex($pattern, $replacement, $subject)
+    {
+        preg_match($pattern, $subject, $matches, PREG_OFFSET_CAPTURE);
+        if(!isset($matches[0][0]))
+            return $subject;
+        $concatenate = $matches[0][0];
+        return preg_replace($pattern, $concatenate.$replacement, $subject);
+    }
 }

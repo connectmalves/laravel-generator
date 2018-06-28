@@ -1,0 +1,4 @@
+'web-$MODEL_NAME_CAMEL$' => [
+            'driver' => 'session',
+            'provider'=> '$MODEL_NAME_PLURAL_CAMEL$'
+        ]
