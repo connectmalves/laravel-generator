@@ -39,7 +39,7 @@ return [
 
         'views'             => base_path('resources/views/'),
 
-        'schema_files'      => base_path('resources/model_schemas/'),
+        'schema_files'      => base_path('resources/json/'),
 
         'templates_dir'     => base_path('resources/infyom/infyom-generator-templates/'),
 
