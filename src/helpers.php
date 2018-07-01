@@ -148,22 +148,17 @@ if (!function_exists('conditional_resolver_inline')) {
      */
     function conditional_resolver_inline($variables, $template)
     {
-        foreach(array_keys($variables) as $key)
-        {
+        foreach (array_keys($variables) as $key) {
             $regex = "/\%\s*if\s+".'\$'.$key.'\$'."\s+putline\s*.*\S*\%/";
-            if(preg_match($regex, $template, $blocks, PREG_OFFSET_CAPTURE))
-            {
-                foreach($blocks as $block)
-                {
+            if (preg_match($regex, $template, $blocks, PREG_OFFSET_CAPTURE)) {
+                foreach ($blocks as $block) {
                     $block = $block[0];
                     $line = "";
-                    if($variables[$key])
-                    {
+                    if ($variables[$key]) {
                         $tr = explode(' ', $block);
-                        $firstWordPosition = array_search('putline', $tr) + 1;                   
+                        $firstWordPosition = array_search('putline', $tr) + 1;
                         $lastWordPosition = count($tr)-2;
-                        for($i = $firstWordPosition; $i < $lastWordPosition; $i++)
-                        {
+                        for ($i = $firstWordPosition; $i < $lastWordPosition; $i++) {
                             $line .= $tr[$i]." ";
                         }
                         $line .= $tr[$lastWordPosition];
@@ -188,19 +183,14 @@ if (!function_exists('conditional_resolver')) {
      */
     function conditional_resolver($variables, $template)
     {
-        foreach(array_keys($variables) as $key)
-        {
+        foreach (array_keys($variables) as $key) {
             $regex = "/%\s*if\s+".'\$'.$key.'\$'."\s*%(.*\s*)*(%\s*endif\s*%)/";
-            if(preg_match($regex, $template, $blocks, PREG_OFFSET_CAPTURE))
-            {
+            if (preg_match($regex, $template, $blocks, PREG_OFFSET_CAPTURE)) {
                 $block = $blocks[0][0];
-                if($variables[$key])
-                {
+                if ($variables[$key]) {
                     $block = preg_replace("/(%\s*if\s+".'\$'.$key.'\$'."\s*%\s)/", '', $block);
                     $block = preg_replace("/(%\s*else(.*\s*)*)%\s*endif\s*%/", '', $block);
-                }
-                else
-                {
+                } else {
                     $block = preg_replace("/(%\s*if\s+".'\$'.$key.'\$'."\s*%\s+.*\s+(%\s*else\s*%)*)/", '', $block);
                     $block = preg_replace("/%\s*endif\s*%/", '', $block);
                 }
